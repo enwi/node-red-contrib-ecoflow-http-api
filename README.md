@@ -15,7 +15,7 @@ Because this module uses the standard HTTP API from Ecoflow it should support al
 
 But it is only tested with the following devices:
 - Powerstream
-- Delta Max
+- Delta Max (not working as of June 2025 - gives Access error)
 - Smart Plug
 
 ## Node "Ecoflow API"
