@@ -5,7 +5,6 @@ A Node Red module that allows to use the offical Ecoflow HTTP API to read data f
 At the moment the following functions are supported:
 - [List devices](#query-the-device-list)
 - [Query all data of a device](#query-all-data-of-a-device)
-- [Query specifc datapoints of a device](#query-specific-datapoints)
 - [Generic set of data of a device](#set-a-specific-datapoint)
 - [Query for the user specific MQTT parameters](#query-mqtt-configuration-parameter)
 
@@ -65,13 +64,6 @@ Example for data from a smart plug:
 
 The details of the structure and content can be read under [Ecoflow API Documentation](https://developer-eu.ecoflow.com/us/document/generalInfo).
 
-### query specific datapoints
-
-This works similar to the previous function but will only query requested datapoint for a device.
-The datapoints must be inputed via an array in the payload of the incoming message.
-
-Example datapoints definition: `["20_1.invOutputWatts","20_1.invDemandWatts"]`
-
 ### set a specific datapoint
 
 This is a complicated endpoint because the needed JSON for the request various by a lot from device type to device type.
@@ -107,4 +99,8 @@ It can take up to a week for the account to be enabled.
 1. The API returns the last known values for a device that is offline. Please use the device list function and check the online status of a device bevor using the values (see the example flow "ListDevicesAndQuerThem"). 
 2. The online status in the device list can take up to 15 minutes (in my observations) to reflect when a device is offline.
 3. The PowerOcean seems to have a bug where it only reports values in the API if one of the offical Apps for it are open. See [#9](https://github.com/Shaoranlaos/node-red-contrib-ecoflow-http-api/issues/9) for the curent status on this.
-4. As of June 2025 the Delta Max and Delta 2 give the error "current device is not allowed to get device info" on requesting data over the API. Only the status is available (via device list)
+4. As of June 2025 the Delta Max and Delta 2 give the error "current device is not allowed to get device info" on requesting data over the API. Only the status is available (via device list).
+Offical Response to this issue:
+```
+Due to previous instances of unauthorized access to product categories still under development by some users, which caused significant issues, we have closed these unofficial access points. As a result, devices that are not officially released are not supported for access. Your Delta Max falls under the category of devices that are not currently supported.
+```
