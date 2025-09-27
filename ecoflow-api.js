@@ -21,7 +21,7 @@ module.exports = function(RED) {
             return client.getDevicePropertiesPlain(sn);
         }
         node.queryDeviceList = function() {
-            return client.getDevicesPlain();
+            return client.requestHandler.get(client.deviceListUrl);
         }
         node.setQuotaSelective = function(sn, values) {
             return client.setCommandPlain({sn: sn, ...values });
