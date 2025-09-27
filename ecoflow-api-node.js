@@ -49,14 +49,14 @@ module.exports = function(RED) {
                 if (data) {
                     msg.payload = data;
                     send(msg);
-                    node.status({fill:"green",shape:"dot",text:"success"});
+                    node.status({ fill: "green", shape: "dot", text: "Success" });
                     done();
                 } else {
                     throw new Error("No data received from Ecoflow API");
                 }
 
             } catch (error) {
-                node.status({ fill: "red", shape: "ring", text: error.message });
+                node.status({ fill: "red", shape: "ring", text: "Error" });
                 done(error);
             }
         });
