@@ -38,7 +38,6 @@ module.exports = function(RED) {
                             throw new Error("msg.payload is not an object!");
                         } else {
                             data = await server.setQuotaSelective(serialNumber,quotaTypes);
-                            data = data.data;
                         }
                         break;
                     case 'queryMqttCert':
