@@ -102,7 +102,7 @@ Example:
 
 This mode allows to use a single node to execute all the above functions.
 
-This is done by setting the `msg.function` field on the incoming message to one of the above named functions (in a shorter naming - see the name in brackets above or the list in the help text of the node).
+This is done by setting the `msg.function` field on the incoming message to one of the above named functions (in a shorter naming - see the name in brackets above or the list in the help text of the node) and this is then executed with the data from the incoming message (if addional data is needed).
 
 
 

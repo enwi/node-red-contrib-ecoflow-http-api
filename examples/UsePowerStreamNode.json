@@ -1,0 +1,192 @@
+[
+    {
+        "id": "6df9d33dac73f13f",
+        "type": "tab",
+        "label": "Using the PowerSteam Node",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e0ababe7af293155",
+        "type": "debug",
+        "z": "6df9d33dac73f13f",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c89b72368bca2c55",
+        "type": "ecoflow-powerstream",
+        "z": "6df9d33dac73f13f",
+        "name": "PW Supply Prio",
+        "remote": "9202e94ce13aa49f",
+        "serial_number": "HW51ZXXXXXXXXXX",
+        "function": "setSupplyPriority",
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "e0ababe7af293155"
+            ]
+        ]
+    },
+    {
+        "id": "fc12824e1c63fd41",
+        "type": "inject",
+        "z": "6df9d33dac73f13f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "battery",
+        "payloadType": "str",
+        "x": 350,
+        "y": 400,
+        "wires": [
+            [
+                "c89b72368bca2c55"
+            ]
+        ]
+    },
+    {
+        "id": "805b61aafa58d069",
+        "type": "inject",
+        "z": "6df9d33dac73f13f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "powerSupply",
+        "payloadType": "str",
+        "x": 370,
+        "y": 440,
+        "wires": [
+            [
+                "c89b72368bca2c55"
+            ]
+        ]
+    },
+    {
+        "id": "beeafbf2164f477f",
+        "type": "ecoflow-powerstream",
+        "z": "6df9d33dac73f13f",
+        "name": "PW Perm. Output",
+        "remote": "9202e94ce13aa49f",
+        "serial_number": "HW51ZXXXXXXXXXX",
+        "function": "setPermanentOutput",
+        "x": 570,
+        "y": 520,
+        "wires": [
+            [
+                "e0ababe7af293155"
+            ]
+        ]
+    },
+    {
+        "id": "75bcaff3db5067ae",
+        "type": "inject",
+        "z": "6df9d33dac73f13f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 350,
+        "y": 520,
+        "wires": [
+            [
+                "beeafbf2164f477f"
+            ]
+        ]
+    },
+    {
+        "id": "274ae136fcb5f48d",
+        "type": "ecoflow-powerstream",
+        "z": "6df9d33dac73f13f",
+        "name": "PW Properties",
+        "remote": "9202e94ce13aa49f",
+        "serial_number": "HW51ZXXXXXXXXXX",
+        "function": "queryAllData",
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "e0ababe7af293155"
+            ]
+        ]
+    },
+    {
+        "id": "0b64f7c500994a6a",
+        "type": "inject",
+        "z": "6df9d33dac73f13f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "274ae136fcb5f48d"
+            ]
+        ]
+    },
+    {
+        "id": "9202e94ce13aa49f",
+        "type": "ecoflow-api-server",
+        "name": "Ecoflow",
+        "server": "https://api-e.ecoflow.com"
+    },
+    {
+        "id": "6441ae4ea36f7db4",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@shaoranlaos/node-red-contrib-ecoflow-http-api": "2.2.0"
+        }
+    }
+]
