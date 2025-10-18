@@ -1,0 +1,171 @@
+[
+    {
+        "id": "814ed7f41399e95a",
+        "type": "tab",
+        "label": "Use msg.function",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "faed9ed8e302c7a4",
+        "type": "inject",
+        "z": "814ed7f41399e95a",
+        "name": "Get Device List",
+        "props": [
+            {
+                "p": "function",
+                "v": "deviceList",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "52550b364b28bc08"
+            ]
+        ]
+    },
+    {
+        "id": "52550b364b28bc08",
+        "type": "ecoflow-api",
+        "z": "814ed7f41399e95a",
+        "name": "",
+        "remote": "9202e94ce13aa49f",
+        "serial_number": "",
+        "function": "msg",
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "298f13bfb815cb16"
+            ]
+        ]
+    },
+    {
+        "id": "298f13bfb815cb16",
+        "type": "debug",
+        "z": "814ed7f41399e95a",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "dce11ddba9cd7b8e",
+        "type": "inject",
+        "z": "814ed7f41399e95a",
+        "name": "Get Device Data",
+        "props": [
+            {
+                "p": "function",
+                "v": "queryQuotaAll",
+                "vt": "str"
+            },
+            {
+                "p": "sn",
+                "v": "HW51ZXXXXXXXXXXX",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "52550b364b28bc08"
+            ]
+        ]
+    },
+    {
+        "id": "0ea8652e62fe6929",
+        "type": "inject",
+        "z": "814ed7f41399e95a",
+        "name": "Set Device value",
+        "props": [
+            {
+                "p": "function",
+                "v": "setQuota",
+                "vt": "str"
+            },
+            {
+                "p": "sn",
+                "v": "HW51ZXXXXXXXXXXX",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"cmdCode\":\"WN511_SOCKET_SET_PLUG_SWITCH_MESSAGE\",\"params\":{\"plugSwitch\":0}}",
+        "payloadType": "json",
+        "x": 380,
+        "y": 320,
+        "wires": [
+            [
+                "52550b364b28bc08"
+            ]
+        ]
+    },
+    {
+        "id": "d72e75e2750af4bc",
+        "type": "inject",
+        "z": "814ed7f41399e95a",
+        "name": "Get MQTT Parameter",
+        "props": [
+            {
+                "p": "function",
+                "v": "queryMqttCert",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "52550b364b28bc08"
+            ]
+        ]
+    },
+    {
+        "id": "9202e94ce13aa49f",
+        "type": "ecoflow-api-server",
+        "name": "Ecoflow",
+        "server": "https://api-e.ecoflow.com"
+    },
+    {
+        "id": "b2adb69a1206499f",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@shaoranlaos/node-red-contrib-ecoflow-http-api": "2.2.0"
+        }
+    }
+]
