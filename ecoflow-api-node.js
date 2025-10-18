@@ -24,12 +24,12 @@ module.exports = function(RED) {
             let data;
             try {
                 switch(func) {
-                    case 'queryQuotaAll':
-                        data = await server.queryQuotaAll(serialNumber);
-                        data = data.data;
-                        break;
                     case 'deviceList':
                         data = await server.queryDeviceList();
+                        data = data.data;
+                        break;
+                    case 'queryQuotaAll':
+                        data = await server.queryQuotaAll(serialNumber);
                         data = data.data;
                         break;
                     case 'setQuota':

@@ -22,13 +22,18 @@ But it is only tested with the following devices:
 - Delta Max (not working as of June 2025 - gives Access error)
 - Smart Plug
 
-## Node "Ecoflow API"
+
+
+## Node "Ecoflow Generic API"
+
+### Ecoflow client configuration (Authentication)
 
 The node can be configured with the official credentials gotten from [Ecoflow OpenIoT](https://developer-eu.ecoflow.com).
+See [below](#getting-access-key-and-secret-key) for a bit more information.
 
-It has the following functions:
+### Functions
 
-### query the device list
+#### query the device list (deviceList)
 
 This simply return a list of all devices that are registered with the used account and gives there product name, custom name, serial number and online status.
 It takes no inputs.
@@ -45,7 +50,7 @@ It takes no inputs.
 ]
 ```
 
-### query all data of a device
+#### query all data of a device (queryQuotaAll)
 
 The returns all data that can be queried for a specific device. It needs the serial number of the device as input.
 
@@ -69,7 +74,7 @@ Example for data from a smart plug:
 
 The details of the structure and content can be read under [Ecoflow API Documentation](https://developer-eu.ecoflow.com/us/document/generalInfo).
 
-### set a specific datapoint
+#### set a specific value (setQuota)
 
 This is a complicated endpoint because the needed JSON for the request various by a lot from device type to device type.
 Because of that the endpoint is very generic and almost expects the full json from the official API. Only the serial number must be excluded because this will be set from the serial number set in the node config or from the msg.sn field.
@@ -84,7 +89,7 @@ the endpoint expects the following as a json payload on the message
 {"cmdCode": "WN511_SET_PERMANENT_WATTS_PACK","params": {"permanentWatts": 20}}
 ```
 
-### query MQTT configuration parameter
+#### get MQTT connection parameter (queryMqttCert)
 
 This will query the HTTP-API for the needed configuration to use the offical MQTT-API.
 
@@ -93,10 +98,20 @@ Example:
 {"certificateAccount":"open-...","certificatePassword":"...","url":"mqtt-e.ecoflow.com","port":"8883","protocol":"mqtts"}
 ```
 
+#### use the msg.function field
+
+This mode allows to use a single node to execute all the above functions.
+
+This is done by setting the `msg.function` field on the incoming message to one of the above named functions (in a shorter naming - see the name in brackets above or the list in the help text of the node).
+
+
+
 ## Getting Access Key and Secret Key
 
 The Credentials can be requested on the offical Ecoflow IoT Website: [Ecoflow OpenIoT](https://developer-eu.ecoflow.com).
+
 It can take up to a week for the account to be enabled.
+
 
 
 ## Known "Problems"
