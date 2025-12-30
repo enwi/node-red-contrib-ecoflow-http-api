@@ -17,7 +17,32 @@ module.exports = function(RED) {
             host: ecoflowApiServer,
         });
 
-        node.queryQuotaAll = (sn) => client.getDevicePropertiesPlain(sn);
+        const mainSnEndpoint = "/iot-open/sign/device/system/main/sn";
+
+        node.resolveMainSn = async (sn) => {
+            if (!sn) {
+                return sn;
+            }
+
+            try {
+                const response = await client.requestHandler.get(`${mainSnEndpoint}?sn=${encodeURIComponent(sn)}`);
+                const resolvedSn = response?.data?.mainSn || response?.data?.sn || response?.data;
+
+                if (typeof resolvedSn === "string" && resolvedSn.length > 0) {
+                    return resolvedSn;
+                }
+
+                return sn;
+            } catch (error) {
+                node.debug(`main SN lookup failed for ${sn}: ${error.message}`);
+                return sn;
+            }
+        };
+
+        node.queryQuotaAll = async (sn) => {
+            const resolvedSn = await node.resolveMainSn(sn);
+            return client.getDevicePropertiesPlain(resolvedSn);
+        };
         node.queryDeviceList = () => client.requestHandler.get(client.deviceListUrl);
         node.setQuotaSelective = (sn, values) => client.setCommandPlain({sn: sn, ...values });
         node.queryMqttCert =  () => client.getMqttCredentials()
